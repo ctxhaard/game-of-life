@@ -23,11 +23,9 @@ bool Gameplay::init(int h, int w)
 	srand(123);
 	int r = rand();
 	
-	// TODO: usare iteratori del c++14
-	for (int i = 0; i < _current.size(); ++i)  {
-		_current.at(i) = !(rand() % 15);
-	}	
-
+	for(auto &val : _current) {
+		val = !(rand() % 15);
+	}
 	_width = w;
 	return true;
 }
@@ -62,18 +60,18 @@ bool Gameplay::isAlive(int line, int col) const
 	return (_current.at( line * _width + col) != DEAD);
 }
 
-int Gameplay::neighbors(std::vector<unsigned char>& buffer, int index)
+int Gameplay::neighbors(std::vector<unsigned char>& buffer, int index) const
 {
 	int res = 0;
-	int ineigh[8] = { 
+	std::vector<int> ineigh = { 
 		(index - _width - 1), (index - _width), (index - _width + 1),
 		(index - 1), (index + 1),
 		(index + _width - 1), (index + _width), (index + _width + 1)
 	};
-	for (int i = 0; i < 8; ++i) {
-		if(ineigh[i] >= 0 && ineigh[i] < _current.size()) {
-			res += !!_current.at(ineigh[i]); 
-		}	
+	for(auto index : ineigh) {
+		if (index >= 0 && index < buffer.size()) {
+			res += !!buffer.at(index);
+		}
 	}
 	return res;
 }

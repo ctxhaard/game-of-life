@@ -10,7 +10,7 @@ public:
 	bool isAlive(int line, int col) const;
 private:
 
-	int neighbors(std::vector<unsigned char>& buffer, int index);
+	int neighbors(std::vector<unsigned char>& buffer, int index) const;
 	std::vector<unsigned char> _buffer[2];
 	std::vector<unsigned char>& _current;
 	std::vector<unsigned char>& _next;
