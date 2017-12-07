@@ -11,9 +11,8 @@ public:
 private:
 
 	int neighbors(std::vector<unsigned char>& buffer, int index) const;
-	std::vector<unsigned char> _buffer[2];
-	decltype(_buffer[0])& _current;
-	decltype(_buffer[0])& _next;
+	std::vector<unsigned char> _current;
+	decltype(_current) _next;
 	int _width;
 };
 }

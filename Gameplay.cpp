@@ -1,13 +1,13 @@
 #include "Gameplay.h"
 #include <stdlib.h>
+#include <array>
 
 #define DEAD (0)
 namespace gol {
 
 Gameplay::Gameplay()
-: _buffer{ }
-, _current { _buffer[0] }
-, _next { _buffer[1] }
+: _current { }
+, _next { }
 , _width{ 0 }
 {
 
@@ -15,10 +15,8 @@ Gameplay::Gameplay()
 
 bool Gameplay::init(int h, int w)
 {
-	_buffer[0].resize(h * w);
-	_buffer[1].resize(h * w);
-
-	_current = _buffer[0];
+	_current.resize(h * w);
+	_next.resize(h * w);
 
 	srand(123);
 	int r = rand();
@@ -45,14 +43,7 @@ void Gameplay::tick()
 			else _next[i] = !DEAD;
 		}
 	}
-
-	if (&_current == &_buffer[0]) {
-		_current = _buffer[1];
-		_next = _buffer[0];
-	} else {
-		_current = _buffer[0];
-		_next = _buffer[1];
-	}
+	std::swap(_current, _next);
 }
 
 bool Gameplay::isAlive(int line, int col) const
@@ -63,7 +54,7 @@ bool Gameplay::isAlive(int line, int col) const
 int Gameplay::neighbors(std::vector<unsigned char>& buffer, int index) const
 {
 	int res = 0;
-	std::vector<int> ineigh = { 
+	std::array<int,8> ineigh = { 
 		(index - _width - 1), (index - _width), (index - _width + 1),
 		(index - 1), (index + 1),
 		(index + _width - 1), (index + _width), (index + _width + 1)
