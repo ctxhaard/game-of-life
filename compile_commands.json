@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/italia.texa.org/ctomasin/development/github/game-of-life",
+  "command": "clang++ -std=c++14 -Og -ggdb main.cpp Gameplay.cpp -o game-of-life -L/usr/lib/i386-linux-gnu -lncurses",
+  "file": "/home/italia.texa.org/ctomasin/development/github/game-of-life/main.cpp"
+}
+]

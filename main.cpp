@@ -8,10 +8,9 @@
 
 void load(const gol::Gameplay& g, WINDOW *win, int h, int w)
 {
-	int line, col;
 	werase(win);
-	for(line=0; line < h; ++line) {
-		for(col=0; col < w; ++col) {
+	for(int line=0; line < h; ++line) {
+		for(int col=0; col < w; ++col) {
 			if(g.isAlive(line, col)) mvwaddch( win, line, col, ALIVE_MARKER);
 		}
 	}
@@ -20,8 +19,6 @@ void load(const gol::Gameplay& g, WINDOW *win, int h, int w)
 
 int main(int argc, const char *argv[])
 {
-	int ch;
-	int h, w;
 	bool wantQuit = false;
 	gol::Gameplay gameplay{};
 	initscr();
@@ -30,13 +27,13 @@ int main(int argc, const char *argv[])
 	curs_set(0);
 	nodelay(stdscr, true);
 	
+	int h, w;
 	getmaxyx(stdscr, h, w);
 	gameplay.init(h, w);
 	do {
 		load(gameplay, stdscr, h, w);
 		gameplay.tick();
-		ch = getch();
-		wantQuit = ('q' == ch);
+		wantQuit = ('q' == getch());
 		usleep(wantQuit ? 0 : TICK_USEC);
 	} while(!wantQuit);
 

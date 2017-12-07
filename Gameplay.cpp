@@ -36,13 +36,13 @@ void Gameplay::tick()
 		int nNeigh = neighbors(_current, i);
 		if(DEAD == _current[i]) {
 			/*currently dead*/
-			if (3 == nNeigh) _next.at(i) = !DEAD;
-			else _next.at(i) = DEAD;
+			if (3 == nNeigh) _next[i] = !DEAD;
+			else _next[i] = DEAD;
 		} else {
 			/* currently alive*/
-			if (nNeigh < 2) _next.at(i) = DEAD;
-			else if(nNeigh > 3) _next.at(i) = DEAD;
-			else _next.at(i) = !DEAD;
+			if (nNeigh < 2) _next[i] = DEAD;
+			else if(nNeigh > 3) _next[i] = DEAD;
+			else _next[i] = !DEAD;
 		}
 	}
 
@@ -68,9 +68,18 @@ int Gameplay::neighbors(std::vector<unsigned char>& buffer, int index) const
 		(index - 1), (index + 1),
 		(index + _width - 1), (index + _width), (index + _width + 1)
 	};
-	for(auto index : ineigh) {
-		if (index >= 0 && index < buffer.size()) {
-			res += !!buffer.at(index);
+
+	auto begin = ineigh.begin();
+	auto end = ineigh.end();
+	if (0 == (index % _width)) {
+		begin = begin + 3;
+	} else if ( (index % _width) == (_width - 1) ) {
+		end = end - 3;
+	}
+
+	for (auto i = begin; i != end; ++i) {
+		if (*i >= 0 && *i < buffer.size()) {
+			res += !!buffer[*i];
 		}
 	}
 	return res;
