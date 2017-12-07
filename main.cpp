@@ -33,7 +33,13 @@ int main(int argc, const char *argv[])
 	do {
 		load(gameplay, stdscr, h, w);
 		gameplay.tick();
-		wantQuit = ('q' == getch());
+		int c = getch();
+
+		if (KEY_RESIZE == c) {
+			getmaxyx(stdscr, h, w);
+			gameplay.init(h, w);
+		}
+		wantQuit = ('q' == c);
 		usleep(wantQuit ? 0 : TICK_USEC);
 	} while(!wantQuit);
 

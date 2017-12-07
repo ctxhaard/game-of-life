@@ -5,7 +5,7 @@
 namespace gol {
 
 Gameplay::Gameplay()
-: _buffer{ std::vector<unsigned char>{}, std::vector<unsigned char>{} }
+: _buffer{ }
 , _current { _buffer[0] }
 , _next { _buffer[1] }
 , _width{ 0 }
