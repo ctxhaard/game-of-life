@@ -2,13 +2,16 @@
 #include <unistd.h>
 #include "Gameplay.h"
 
+
+#define ALIVE_MARKER 'O'
+
 void load(const gol::Gameplay& g, WINDOW *win, int h, int w)
 {
 	int line, col;
 	wrefresh(win);
 	for(line=0; line < h; ++line) {
 		for(col=0; col < w; ++col) {
-			if(g.isAlive(line, col)) mvwaddch( win, line, col, 'X');
+			if(g.isAlive(line, col)) mvwaddch( win, line, col, ALIVE_MARKER);
 		}
 	}
 }
